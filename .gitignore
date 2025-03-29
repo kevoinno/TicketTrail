@@ -1,2 +1,5 @@
 venv/
 .env
+.cursorrules
+data/raw/
+data/processed/
