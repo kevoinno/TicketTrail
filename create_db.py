@@ -13,7 +13,7 @@ try:
         
         # venues table
         cur.execute("""CREATE TABLE IF NOT EXISTS venues (
-                        venue_id SERIAL PRIMARY KEY,
+                        venue_id VARCHAR(255) PRIMARY KEY,
                         name VARCHAR(255),
                         address VARCHAR(255),
                         city VARCHAR(255),
@@ -24,18 +24,19 @@ try:
         
         # events table
         cur.execute("""CREATE TABLE IF NOT EXISTS events (
-                        event_id SERIAL PRIMARY KEY,
-                        venue_id SERIAL REFERENCES venues(venue_id),
+                        event_id VARCHAR(255) PRIMARY KEY,
+                        venue_id VARCHAR(255) REFERENCES venues(venue_id),
                         name VARCHAR(255),
                         event_date TIMESTAMPTZ,
                         ticketmaster_url VARCHAR(255),
                         created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
                     );
                     """)
+        
         # ticket_prices table
         cur.execute("""CREATE TABLE IF NOT EXISTS ticket_prices (
                         price_id SERIAL PRIMARY KEY,
-                        event_id SERIAL REFERENCES events(event_id),
+                        event_id VARCHAR(255) REFERENCES events(event_id),
                         snapshot_time TIMESTAMPTZ,
                         min_price DECIMAL(10, 2),
                         max_price DECIMAL(10, 2),
@@ -47,7 +48,7 @@ try:
         # forecast results
         cur.execute("""CREATE TABLE IF NOT EXISTS forecast_results (
                         forecast_id SERIAL PRIMARY KEY,
-                        event_id SERIAL REFERENCES events(event_id),
+                        event_id VARCHAR(255) REFERENCES events(event_id),
                         forecast_date TIMESTAMPTZ,
                         pred_min_price DECIMAL(10, 2),
                         pred_max_price DECIMAL(10, 2),
